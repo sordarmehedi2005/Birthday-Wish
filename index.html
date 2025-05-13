@@ -1,20 +1,22 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #f7e6fd;
+            background: linear-gradient(135deg, #ff66b3, #f7e6fd);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         .container {
             text-align: center;
@@ -22,26 +24,104 @@
         }
         .container h1 {
             font-size: 2.5rem;
-            color: #ff66b3;
+            color: #fff;
             margin-bottom: 1rem;
+            animation: bounce 2s infinite;
         }
         .container p {
             font-size: 1.2rem;
             color: #333;
+            margin-bottom: 2rem;
+        }
+        .countdown {
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .gallery {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .gallery img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .share-btn {
+            background-color: #ff66b3;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Happy Birthday, My Love!</h1>
-        <p>তোমার হাসিতে পৃথিবীটা যেন আরও রঙিন হয়ে ওঠে। আজকের এই বিশেষ দিনে তোমার জন্য আমার সমস্ত ভালোবাসা, আনন্দ আর শুভকামনা রইল। তুমি যেমন আমার জীবনের প্রতিটি দিনকে আলোকিত করো, তেমনি আজকের দিনটা তোমার জন্য অসীম সুখ আর আনন্দ নিয়ে আসুক। ভালোবাসি তোমাকে! শুভ জন্মদিন!</p>
-        <audio autoplay>
+        <h1>Happy Birthday, Rita Moni!</h1>
+        <p>শুভ জন্মদিন আমার প্রিয়তমা! তোমার হাসিতে আমার পৃথিবীটা যেন আরও রঙিন হয়ে ওঠে। আজকের এই বিশেষ দিনে তোমার জন্য আমার সমস্ত ভালোবাসা! তুমি যেমন আমার জীবনের প্রতিটি দিনকে সুন্দর করে তুলতে পারো, তেমনি আজকের দিনটা তোমার জন্য অনেক আনন্দ নিয়ে আসুক। ভালোবাসি তোমাকে! শুভ জন্মদিন! আর হ্যাঁ, পাখি plz আমার উপর রাগ করে আর দূরে থেকো না। plz আজকের উসিলায় আমার কাছে চলে আসো, আমার ভালোলাগে না তোমাকে ছাড়া, আমি তোমাকে না বুঝে হয়তো অনেক কথা বলেছি যাতে তুমি কষ্ট পেয়েছো কিন্তু বিশ্বাস করো পাখি আমি বুঝতে পারি নি, যখন বুঝতে পারছি তখন তোমার কাছে ক্ষমা চেয়েছি। আরেকবার sorry বলছি প্লীজ পাখি ক্ষমা করে দাও। আর শুনো I love you! অনেক ভালোবাসি তোমায়! কখনো আমায় ছেড়ে যেও না!</p>
+        
+        <div class="countdown">পরবর্তী জন্মদিনে বাকি সময়: <span id="timer"></span></div>
+        
+        <div class="gallery">
+    <img src="/mnt/data/file-5bHQej1kcwLqSMy5vTwFMi" alt="Rita Moni">
+    <!-- নতুন ছবি যোগ করতে এখানে <img src='লিংক' alt='বিবরণ'> ফরম্যাটে যোগ করবে -->
+</div>
+        
+        <button class="share-btn" onclick="shareLink()">Share this page</button>
+
+        <audio autoplay loop>
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         </audio>
     </div>
+
+    <script>
+        // Countdown Timer
+        const now = new Date();
+        let nextBirthday = new Date(now.getFullYear(), 4, 14);
+        if (now > nextBirthday) {
+            nextBirthday = new Date(now.getFullYear() + 1, 4, 14);
+        }
+
+        const timerElement = document.getElementById('timer');
+
+        function updateTimer() {
+            const now = new Date();
+            const timeLeft = nextBirthday - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            timerElement.innerHTML = ${days} দিন ${hours} ঘন্টা ${minutes} মিনিট ${seconds} সেকেন্ড;
+        }
+
+        setInterval(updateTimer, 1000);
+
+        // Share Link
+        function shareLink() {
+            const shareData = {
+                title: 'Happy Birthday Wish',
+                text: 'Check out this special birthday wish just for you!',
+                url: window.location.href
+            };
+
+            navigator.share(shareData).catch(console.error);
+        }
+
+    </script>
 </body>
 </html>
